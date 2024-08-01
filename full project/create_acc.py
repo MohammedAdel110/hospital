@@ -154,9 +154,29 @@ check.grid(row=7, column=0, columnspan=4, pady=5, padx=5, sticky="w")
 
 check2 = Checkbutton(frame, text="I agree to the privacy policy", font=("Arial", 8, "bold"), bg='#48cae4',variable=ChekckVar1)
 check2.grid(row=8, column=0, columnspan=4, pady=5, padx=5, sticky="w")
+#Create Account btn 
+def create_acc():
+    RealPass=passvar.get()
+    Confirmpass=confirmvar.get()
+    policy1=ChekckVar1.get()
+    
+    if policy1==False and RealPass==Confirmpass=='':
+        messagebox.showerror('log in','Please enter your password and confirm the Plotical conditions.')
+    elif policy1==True and RealPass=='' or Confirmpass=='' :
+        messagebox.showerror('log in','Make sure to write the password or confirmation')
+    elif policy1==True and RealPass!=Confirmpass:
+       messagebox.showerror('log in','Password does not match')
+    elif RealPass==Confirmpass and policy1==False:
+        messagebox.showerror('log in','Please check the political terms.')
+    elif RealPass!=Confirmpass and policy1==False:
+        messagebox.showerror('log in','Check passwoer and political terms.')
+    else:
+        messagebox.showinfo('log in','The account was created successfully.')
+        main.destroy()
+        import login
 
 # Create Account Button
-CreateAcc = Button(main, text="Create Account", font=('Arial', 15, 'bold'), fg='#ffffff', bg='#00b4d8', width=20, height=2,command=Check_password)
+CreateAcc = Button(main, text="Create Account", font=('Arial', 15, 'bold'), fg='#ffffff', bg='#00b4d8', width=20, height=2,command=create_acc)
 CreateAcc.grid(row=9, column=0, columnspan=4, pady=20)
 
 main.mainloop()

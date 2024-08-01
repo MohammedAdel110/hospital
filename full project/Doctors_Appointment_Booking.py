@@ -154,41 +154,43 @@ bookImageTk = ImageTk.PhotoImage(bookImage)
 Imagelbl = Label(Bookpage, image=bookImageTk)
 Imagelbl.place(relx=0.1, rely=0.45)
 
-# Medical fields dictionary
+# Medical field combobox
 medical_fields = {
-    "Dentistry": "Ramy Khaled",
-    "Orthopedics": "Ziad Kamal",
-    "Pulmonology": "Ahmed Mohamed",
-    "Cardiology": "Yusesef Hassan",
-    "Ophthalmology": "Hossam Wael"
+    "Ahmed Mohamed": "Pulmonology",
+    "Hossam Wael": "Ophthalmology",
+    "Ramy Khaled": "Dentistry",
+    "Yusesef Hassan": "Cardiology",
+    "Ziad Kamal": "Orthopedics"
 }
 
-# Medical field label
-medical_fieldlbbl = Label(Bookpage, text='Medical Field', font=('Batang', 10, 'bold'), bg='#84d2f6', relief='solid')
-medical_fieldlbbl.place(relx=0.68, rely=0.85)
-
-# Medical field combobox
 medical_fieldsVar = StringVar()
-medical_fieldsVar.set("Dentistry")
-medical_field_combobox = Combobox(Bookpage, values=list(medical_fields.keys()), textvariable=medical_fieldsVar, width=13, state='readonly')
-medical_field_combobox.place(relx=0.68, rely=0.88)
+medical_fieldsVar.set("Pulmonology")
 
-# Doctor name label
-Doctor_lbl = Label(Bookpage, text="Doctor Name", font=('Batang', 10, 'bold'), bg='#84d2f6', relief='solid')
-Doctor_lbl.place(relx=0.758, rely=0.85)
+medical_fieldcombobox = Combobox(Bookpage, values=list(medical_fields.values()), textvariable=medical_fieldsVar, width=11, state='readonly')
+medical_fieldcombobox.place(relx=0.69, rely=0.88)
 
-# Doctor name entry
+# Medical field lbl
+medical_fieldlbbl = Label(Bookpage, text='medical field', font=('Batang', 10, 'bold'), bg='#84d2f6', relief='solid')
+medical_fieldlbbl.place(relx=0.69, rely=0.85)
+
+# Doctor name combobox
+Doctors = list(medical_fields.keys())
 DoctorsVar = StringVar()
-doctor_name_entry = Entry(Bookpage, textvariable=DoctorsVar, width=16, state='readonly')
-doctor_name_entry.place(relx=0.762, rely=0.88)
+DoctorsVar.set("Ahmed Mohamed")
 
-# Update doctor name based on medical field selection
-def update_doctor_name(*args):
-    selected_field = medical_fieldsVar.get()
-    doctor_name = medical_fields.get(selected_field, "")
-    DoctorsVar.set(doctor_name)
+Doctor_combobox = Combobox(Bookpage, values=Doctors, textvariable=DoctorsVar, width=13, state='readonly')
+Doctor_combobox.place(relx=0.76, rely=0.88)
 
-medical_fieldsVar.trace('w', update_doctor_name)
-update_doctor_name()
+# Doctor name lbl
+Doctor_lbl = Label(Bookpage, text="Doctor name", font=('Batang', 10, 'bold'), bg='#84d2f6', relief='solid')
+Doctor_lbl.place(relx=0.76, rely=0.85)
+
+# Update medical field based on doctor selection
+def update_medical_field(*args):
+    selected_doctor = DoctorsVar.get()
+    medical_field = medical_fields.get(selected_doctor, "Pulmonology")
+    medical_fieldsVar.set(medical_field)
+
+DoctorsVar.trace('w', update_medical_field)
 
 Bookpage.mainloop()
